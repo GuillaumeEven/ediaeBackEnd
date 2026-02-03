@@ -2,33 +2,33 @@ package com.evendev.ediaebackend.models;
 
 public class Film_Genero {
 
-    private int filmId;
-    private int generoId;
+    private int film_id;
+    private int genero_id;
 
-    public Film_Genero(int filmId, int generoId) {
-        this.filmId = filmId;
-        this.generoId = generoId;
+    public Film_Genero(int film_id, int genero_id) {
+        this.film_id = film_id;
+        this.genero_id = genero_id;
     }
 
-    public int getFilmId() {
-        return filmId;
+    public int getfilm_id() {
+        return film_id;
     }
 
-    public void setFilmId(int filmId) {
-        this.filmId = filmId;
+    public void setfilm_id(int film_id) {
+        this.film_id = film_id;
     }
 
-    public int getGeneroId() {
-        return generoId;
+    public int getgenero_id() {
+        return genero_id;
     }
 
-    public void setGeneroId(int generoId) {
-        this.generoId = generoId;
+    public void setgenero_id(int genero_id) {
+        this.genero_id = genero_id;
     }
 
     @Override
     public String toString() {
-        return "Film_Genero{" + "filmId=" + filmId + ", generoId=" + generoId + '}';
+        return "Film_Genero{" + "film_id=" + film_id + ", genero_id=" + genero_id + '}';
     }
 
 }

@@ -2,56 +2,56 @@ package com.evendev.ediaebackend.models;
 
 public class Suscripcion {
 
-    private int tipoId;
+    private int tipo_id;
     private String nombre;
     private double precio;
-    private int duracionMeses;
+    private int duracion_meses;
 
-    public Suscripcion(int tipoId, String nombre, double precio, int duracionMeses) {
-        this.tipoId = tipoId;
+    public Suscripcion(int tipo_id, String nombre, double precio, int duracion_meses) {
+        this.tipo_id = tipo_id;
         this.nombre = nombre;
         this.precio = precio;
-        this.duracionMeses = duracionMeses;
+        this.duracion_meses = duracion_meses;
     }
 
-    public int getTipoId() {
-        return tipoId;
+    public int gettipo_id() {
+        return tipo_id;
     }
 
-    public void setTipoId(int tipoId) {
-        this.tipoId = tipoId;
+    public void settipo_id(int tipo_id) {
+        this.tipo_id = tipo_id;
     }
 
-    public String getNombre() {
+    public String getnombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setnombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public double getprecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setprecio(double precio) {
         this.precio = precio;
     }
 
-    public int getDuracionMeses() {
-        return duracionMeses;
+    public int getduracion_meses() {
+        return duracion_meses;
     }
 
-    public void setDuracionMeses(int duracionMeses) {
-        this.duracionMeses = duracionMeses;
+    public void setduracion_meses(int duracion_meses) {
+        this.duracion_meses = duracion_meses;
     }
 
     @Override
     public String toString() {
-        return "Suscripcion{" + "tipoId=" + tipoId +
+        return "Suscripcion{" + "tipo_id=" + tipo_id +
         ", nombre=" + nombre +
         ", precio=" + precio +
-        ", duracionMeses=" + duracionMeses +
+        ", duracion_meses=" + duracion_meses +
         '}';
     }
 }

@@ -2,53 +2,53 @@ package com.evendev.ediaebackend.models;
 
 public class Cuenta {
 
-    private int idCuenta;
-    private String tipoCuenta;
+    private int id_cuenta;
+    private String tipo_cuenta;
     private String nombre;
-    private String passwordHash;
+    private String password_hash;
 
-    public Cuenta(int idCuenta, String tipoCuenta, String nombre, String passwordHash) {
-        this.idCuenta = idCuenta;
-        this.tipoCuenta = tipoCuenta;
+    public Cuenta(int id_cuenta, String tipo_cuenta, String nombre, String password_hash) {
+        this.id_cuenta = id_cuenta;
+        this.tipo_cuenta = tipo_cuenta;
         this.nombre = nombre;
-        this.passwordHash = passwordHash;
+        this.password_hash = password_hash;
     }
 
-    public int getIdCuenta() {
-        return idCuenta;
+    public int getid_cuenta() {
+        return id_cuenta;
     }
 
-    public void setIdCuenta(int idCuenta) {
-        this.idCuenta = idCuenta;
+    public void setid_cuenta(int id_cuenta) {
+        this.id_cuenta = id_cuenta;
     }
 
-    public String getTipoCuenta() {
-        return tipoCuenta;
+    public String gettipo_cuenta() {
+        return tipo_cuenta;
     }
 
-    public void setTipoCuenta(String tipoCuenta) {
-        this.tipoCuenta = tipoCuenta;
+    public void settipo_cuenta(String tipo_cuenta) {
+        this.tipo_cuenta = tipo_cuenta;
     }
 
-    public String getNombre() {
+    public String getnombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setnombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getpassword_hash() {
+        return password_hash;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setpassword_hash(String password_hash) {
+        this.password_hash = password_hash;
     }
 
     @Override
     public String toString() {
-        return "Cuenta{" + "idCuenta=" + idCuenta + ", tipoCuenta=" + tipoCuenta + ", nombre=" + nombre + ", passwordHash=" + passwordHash + '}';
+        return "Cuenta{" + "id_cuenta=" + id_cuenta + ", tipo_cuenta=" + tipo_cuenta + ", nombre=" + nombre + ", password_hash=" + password_hash + '}';
     }
 
 }

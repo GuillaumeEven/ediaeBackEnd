@@ -27,51 +27,51 @@ public class Filmografia {
         this.pais = pais;
     }
 
-    public int getId() {
+    public int getid() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setid(int id) {
         this.id = id;
     }
 
-    public String getTitulo() {
+    public String gettitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
+    public void settitulo(String titulo) {
         this.titulo = titulo;
     }
 
-    public Date getFecha_estreno() {
+    public Date getfecha_estreno() {
         return fecha_estreno;
     }
 
-    public void setFecha_estreno(Date fecha_estreno) {
+    public void setfecha_estreno(Date fecha_estreno) {
         this.fecha_estreno = fecha_estreno;
     }
 
-    public String getSinopsis() {
+    public String getsinopsis() {
         return sinopsis;
     }
 
-    public void setSinopsis(String sinopsis) {
+    public void setsinopsis(String sinopsis) {
         this.sinopsis = sinopsis;
     }
 
-    public String getClasificacion() {
+    public String getclasificacion() {
         return clasificacion;
     }
 
-    public void setClasificacion(String clasificacion) {
+    public void setclasificacion(String clasificacion) {
         this.clasificacion = clasificacion;
     }
 
-    public String getPais() {
+    public String getpais() {
         return pais;
     }
 
-    public void setPais(String pais) {
+    public void setpais(String pais) {
         this.pais = pais;
     }
 
