@@ -1,6 +1,6 @@
 package com.evendev.ediaebackend.models;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  *
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Filmografia {
     private int id;
     private String titulo;
-    private LocalDate fecha_estreno;
+    private Date fecha_estreno;
     private String sinopsis;
     private String clasificacion;
     private String pais;
@@ -18,7 +18,7 @@ public class Filmografia {
         super();
     }
 
-    public Filmografia(int id, String titulo, LocalDate fecha_estreno, String sinopsis, String clasificacion, String pais) {
+    public Filmografia(int id, String titulo, Date fecha_estreno, String sinopsis, String clasificacion, String pais) {
         this.id = id;
         this.titulo = titulo;
         this.fecha_estreno = fecha_estreno;
@@ -43,11 +43,11 @@ public class Filmografia {
         this.titulo = titulo;
     }
 
-    public LocalDate getFecha_estreno() {
+    public Date getFecha_estreno() {
         return fecha_estreno;
     }
 
-    public void setFecha_estreno(LocalDate fecha_estreno) {
+    public void setFecha_estreno(Date fecha_estreno) {
         this.fecha_estreno = fecha_estreno;
     }
 
