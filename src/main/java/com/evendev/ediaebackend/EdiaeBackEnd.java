@@ -4,12 +4,14 @@
 
 package com.evendev.ediaebackend;
 
-import com.evendev.ediaebackend.DBManager;
+import com.evendev.ediaebackend.utils.Menu;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Scanner;
 /**
  *
  * @author sensei
@@ -17,6 +19,42 @@ import java.sql.SQLException;
 public class EdiaeBackEnd {
 
     public static void main(String[] args) {
+        
+        Scanner scan = new Scanner(System.in);
+
+        // Create a menu to select one of the different exercices
+        ArrayList<String> mainEntries = new ArrayList<String>();
+        mainEntries.add("Explore the miscellaneous exercises completed");
+        mainEntries.add("Experiment with the Munchkin application");
+        mainEntries.add("Experiment with the Monopoly application");
+        mainEntries.add("Quit this program");
+        Menu mainMenu = new Menu(mainEntries, scan);
+        int mainChoice = mainMenu.askForChoice();
+
+        while (mainChoice != mainEntries.size()-1) {
+                switch(mainChoice) {
+                case 0:
+                        net.evendev.ediae.exercices.Main.main(args, scan);
+                        break;
+                case 1:
+                        net.evendev.ediae.munchkin.Main.main(args, scan);
+                        break;
+                case 2:
+                        // TODO fix monopoly app
+                        net.evendev.ediae.monopoly.Monopoly.main(args, scan);
+                        break;
+                case 3:
+                        // TODO This call doesn't work
+                        System.out.println("Ciao");
+                        net.evendev.ediae.exercices.WordOccurenciesCounter.main(args, scan);
+                        break;
+                default:
+                }
+                mainChoice = mainMenu.askForChoice();
+
+        
+        
+        
         System.out.println("Lectura de datos de la base netflix...");
 
         DBManager dbManager = new DBManager();
