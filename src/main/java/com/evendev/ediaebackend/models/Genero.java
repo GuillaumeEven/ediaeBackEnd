@@ -1,31 +1,32 @@
+package com.evendev.ediaebackend.models;
+
 public class Genero {
+    private int id;
+    private String nombre;
 
-    private int film_id;
-    private int genero_id;
-
-    public Genero(int film_id, int genero_id) {
-        this.film_id = film_id;
-        this.genero_id = genero_id;
+    public Genero(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
     }
 
-    public int getFilm_id() {
-        return film_id;
+    public int getId() {
+        return id;
     }
 
-    public void setFilm_id(int film_id) {
-        this.film_id = film_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getGenero_id() {
-        return genero_id;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setGenero_id(int genero_id) {
-        this.genero_id = genero_id;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override
     public String toString() {
-        return "Genero{" + "film_id=" + film_id + ", genero_id=" + genero_id + '}';
+        return "Genero{" + "id=" + id + ", nombre=" + nombre + '}';
     }
 }

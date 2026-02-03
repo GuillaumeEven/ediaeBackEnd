@@ -1,3 +1,5 @@
+package com.evendev.ediaebackend.models;
+
 public class Suscripcion {
 
     private int tipoId;

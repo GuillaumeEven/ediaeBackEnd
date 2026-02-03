@@ -1,3 +1,5 @@
+package com.evendev.ediaebackend.models;
+
 public class Film_Genero {
 
     private int filmId;

@@ -1,3 +1,5 @@
+package com.evendev.ediaebackend.models;
+
 public class Acceso {
 
     private int idAcceso;

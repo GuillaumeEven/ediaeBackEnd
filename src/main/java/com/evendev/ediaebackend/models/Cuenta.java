@@ -1,3 +1,5 @@
+package com.evendev.ediaebackend.models;
+
 public class Cuenta {
 
     private int idCuenta;

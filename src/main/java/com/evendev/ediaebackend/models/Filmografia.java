@@ -1,3 +1,7 @@
+package com.evendev.ediaebackend.models;
+
+import java.time.LocalDate;
+
 /**
  *
  * @author sensei
@@ -10,8 +14,7 @@ public class Filmografia {
     private String clasificacion;
     private String pais;
 
-
-    public filmografia() {
+    public Filmografia() {
         super();
     }
 
@@ -82,4 +85,5 @@ public class Filmografia {
                 ", clasificacion='" + clasificacion + '\'' +
                 ", pais='" + pais + '\'' +
                 '}';
+    }
 }
