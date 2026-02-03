@@ -6,7 +6,10 @@ package com.evendev.ediaebackend;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 /**
  *
  * @author sensei
@@ -48,6 +51,28 @@ public class DBManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static ArrayList<String> getTableColumns(String tableName) {
+        ArrayList<String> columns = new ArrayList<>();
+        Connection conn = connect();
+        // return columns;
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " LIMIT 1");
+            int columnCount = rs.getMetaData().getColumnCount();
+            for (int i = 1; i <= columnCount; i++) {
+                columns.add(rs.getMetaData().getColumnName(i));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la récupération des colonnes de la table " + tableName);
+            e.printStackTrace();
+        } finally {
+            disconnect(conn);
+        }
+        return columns;
     }
 
 }

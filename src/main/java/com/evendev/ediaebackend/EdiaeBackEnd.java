@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 /**
  *
  * @author sensei
@@ -19,66 +20,52 @@ import java.util.Scanner;
 public class EdiaeBackEnd {
 
     public static void main(String[] args) {
-        
+
+        System.out.println("Hello ! What do you want to do ?");
+
         Scanner scan = new Scanner(System.in);
 
-        // Create a menu to select one of the different exercices
+        // instantiate a DBManager to get a connection
+        DBManager dbManager = new DBManager();
+        Connection connection = dbManager.getConnection();
+
+        // Create a menu to select one of the different possibilities
         ArrayList<String> mainEntries = new ArrayList<String>();
-        mainEntries.add("Explore the miscellaneous exercises completed");
-        mainEntries.add("Experiment with the Munchkin application");
-        mainEntries.add("Experiment with the Monopoly application");
+        mainEntries.add("Read the filmografia table");
+//        mainEntries.add("Experiment with the Munchkin application");
+//        mainEntries.add("Experiment with the Monopoly application");
         mainEntries.add("Quit this program");
         Menu mainMenu = new Menu(mainEntries, scan);
         int mainChoice = mainMenu.askForChoice();
 
         while (mainChoice != mainEntries.size()-1) {
-                switch(mainChoice) {
-                case 0:
-                        net.evendev.ediae.exercices.Main.main(args, scan);
-                        break;
-                case 1:
-                        net.evendev.ediae.munchkin.Main.main(args, scan);
-                        break;
-                case 2:
-                        // TODO fix monopoly app
-                        net.evendev.ediae.monopoly.Monopoly.main(args, scan);
-                        break;
-                case 3:
-                        // TODO This call doesn't work
-                        System.out.println("Ciao");
-                        net.evendev.ediae.exercices.WordOccurenciesCounter.main(args, scan);
-                        break;
-                default:
-                }
-                mainChoice = mainMenu.askForChoice();
-
-        
-        
-        
-        System.out.println("Lectura de datos de la base netflix...");
-
-        DBManager dbManager = new DBManager();
-        Connection connection = dbManager.getConnection();
+            switch(mainChoice) {
+            case 0:
+                dbManager.getTableColumns("filmografia");
+                break;
+            case 1:
+                System.out.println("Exiting...");
+                break;
+            default:
+            }
+            mainChoice = mainMenu.askForChoice();
+        }
 
         if (connection != null) {
-            System.out.println("¡Conexión exitosa!\n");
-
-            // Leer los datos
-            lireDonnees(connection);
-
-            // Cerrar la conexión
             try {
                 connection.close();
-                System.out.println("\nConexión cerrada.");
             } catch (SQLException e) {
+                System.err.println("Erreur lors de la fermeture de la connexion:");
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("Fallo en la conexión.");
         }
+        scan.close();
+        AbandonedConnectionCleanupThread.checkedShutdown();
+        System.out.println("Program finished.");
+
     }
 
-    public static void lireDonnees(Connection conn) {
+    public static void readDatas(Connection conn) {
         try {
             Statement stmt = conn.createStatement();
 
