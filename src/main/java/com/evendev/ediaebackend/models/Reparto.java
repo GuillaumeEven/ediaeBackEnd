@@ -3,39 +3,39 @@ package com.evendev.ediaebackend.models;
 public class Reparto {
 
     private int id_reparto;
-    private int id_filmografia;
-    private String nombre_actor;
+    private int idFilmografia;
+    private String nombreActor;
     private String papel;
 
-    public Reparto(int id_reparto, int id_filmografia, String nombre_actor, String papel) {
-        this.id_reparto = id_reparto;
-        this.id_filmografia = id_filmografia;
-        this.nombre_actor = nombre_actor;
+    public Reparto(int idReparto, int idFilmografia, String nombreActor, String papel) {
+        this.id_reparto = idReparto;
+        this.idFilmografia = idFilmografia;
+        this.nombreActor = nombreActor;
         this.papel = papel;
     }
 
-    public int getid_reparto() {
+    public int getId_reparto() {
         return id_reparto;
     }
 
-    public void setid_reparto(int id_reparto) {
-        this.id_reparto = id_reparto;
+    public void setId_reparto(int idReparto) {
+        this.id_reparto = idReparto;
     }
 
-    public int getid_filmografia() {
-        return id_filmografia;
+    public int getIdFilmografia() {
+        return idFilmografia;
     }
 
-    public void setid_filmografia(int id_filmografia) {
-        this.id_filmografia = id_filmografia;
+    public void setIdFilmografia(int idFilmografia) {
+        this.idFilmografia = idFilmografia;
     }
 
-    public String getnombre_actor() {
-        return nombre_actor;
+    public String getNombreActor() {
+        return nombreActor;
     }
 
-    public void setnombre_actor(String nombre_actor) {
-        this.nombre_actor = nombre_actor;
+    public void setNombreActor(String nombreActor) {
+        this.nombreActor = nombreActor;
     }
 
     public String getPapel() {
@@ -49,9 +49,9 @@ public class Reparto {
     @Override
     public String toString() {
         return "Reparto{" +
-                "id_reparto=" + id_reparto +
-                ", id_filmografia=" + id_filmografia +
-                ", nombre_actor='" + nombre_actor + '\'' +
+                "idReparto=" + id_reparto +
+                ", idFilmografia=" + idFilmografia +
+                ", nombreActor='" + nombreActor + '\'' +
                 ", papel='" + papel + '\'' +
                 '}';
     }
