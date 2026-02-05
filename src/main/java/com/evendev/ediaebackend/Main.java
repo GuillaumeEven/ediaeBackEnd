@@ -23,14 +23,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // test connection to the database
         DBManager dbManager = new DBManager();
         Connection connection = dbManager.getConnection();
         FilmografiaDao filmografiaDao = null;
 
         try {
             filmografiaDao = new FilmografiaDao(connection);
+            System.out.println("Test de filmo.listall");
             filmografiaDao.listAllFilmografia();
+            System.out.println("\nTest de filmo.listOne avec id = 3");
+            filmografiaDao.listOne(3);
         } catch (SQLException e) {
             System.err.println("Something went wrong while reading the filmografia:");
             e.printStackTrace();

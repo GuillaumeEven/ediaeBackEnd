@@ -20,7 +20,6 @@ public class FilmografiaDao {
         }
 
         public void listAllFilmografia() throws SQLException {
-        // TODO change it to use objects instead of just printing
                 String sql = this.LISTALL;
                 try {
                         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -41,25 +40,26 @@ public class FilmografiaDao {
 
         }
 
-        public void listAllFilmografiaWithFilter() throws SQLException {
-            if (connection == null) {
-                throw new SQLException("Connexion DB non initialisée (connection == null)");
-            }
-            String sql = "SELECT * FROM Filmografia WHERE id > ?";
-            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-                stmt.setInt(1, 0);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        int id = rs.getInt("id");
-                        String titulo = rs.getString("titulo");
-                        System.out.println("Id: " + id + " --|-- Titulo: " + titulo);
-                    }
+        public void listOne(int id) throws SQLException {
+            String sql = this.LISTONE;
+            try {
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    Filmografia filmo = new Filmografia();
+                    filmo.setid(rs.getInt("id"));
+                    filmo.settitulo(rs.getString("titulo"));
+                    filmo.setfecha_estreno(rs.getDate("fecha_estreno"));
+                    filmo.setsinopsis(rs.getString("sinopsis"));
+                    filmo.setpais(rs.getInt("pais_id"));
+                    filmo.setclasificacion(rs.getInt("clasificacion_id"));
+                    System.out.println(filmo.toString());
+                } else {
+                    System.out.println("No se encontró una filmografia con id: " + id);
                 }
+            } catch (SQLException e) {
+                System.out.println(e);
             }
         }
-
-//        public void close() {
-//            DBManager.disconnect(connection);
-//            connection = null;
-//        }
 }
