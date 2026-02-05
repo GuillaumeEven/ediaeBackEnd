@@ -21,33 +21,22 @@ import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
  */
 public class Main {
 
-
     public static void main(String[] args) {
 
         // test connection to the database
         DBManager dbManager = new DBManager();
-        Connection connection = null;
+        Connection connection = dbManager.getConnection();
         FilmografiaDao filmografiaDao = null;
-        try {
-            connection = dbManager.getConnection();
-            if (connection != null) {
-                System.out.println("Connection to the database was successful!");
-            } else {
-                System.err.println("Failed to connect to the database.");
-            }
 
-            filmografiaDao = new FilmografiaDao();
+        try {
+            filmografiaDao = new FilmografiaDao(connection);
             filmografiaDao.listAllFilmografia();
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la lecture de la filmografia:");
+            System.err.println("Something went wrong while reading the filmografia:");
             e.printStackTrace();
-        } finally {
-            if (filmografiaDao != null) {
-                filmografiaDao.close();
-            }
-            DBManager.disconnect(connection);
-            AbandonedConnectionCleanupThread.checkedShutdown();
         }
+        DBManager.disconnect(connection);
+        AbandonedConnectionCleanupThread.checkedShutdown();
 
 
         /*

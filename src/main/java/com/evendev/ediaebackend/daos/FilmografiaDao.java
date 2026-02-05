@@ -15,8 +15,8 @@ public class FilmografiaDao {
         private static final String LISTALL = "SELECT * FROM Filmografia";
         private static final String LISTONE = "SELECT * FROM Filmografia WHERE id = ?";
 
-        public FilmografiaDao() {
-                this.connection = DBManager.connect();
+        public FilmografiaDao(Connection connection) {
+            this.connection = connection;
         }
 
         public void listAllFilmografia() throws SQLException {
@@ -43,10 +43,7 @@ public class FilmografiaDao {
 
         public void listAllFilmografiaWithFilter() throws SQLException {
             if (connection == null) {
-                connection = DBManager.connect();
-                if (connection == null) {
-                    throw new SQLException("Connexion DB non initialisée (DBManager.connect() a retourné null)");
-                }
+                throw new SQLException("Connexion DB non initialisée (connection == null)");
             }
             String sql = "SELECT * FROM Filmografia WHERE id > ?";
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -61,8 +58,8 @@ public class FilmografiaDao {
             }
         }
 
-        public void close() {
-            DBManager.disconnect(connection);
-            connection = null;
-        }
+//        public void close() {
+//            DBManager.disconnect(connection);
+//            connection = null;
+//        }
 }
