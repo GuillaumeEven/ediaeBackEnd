@@ -11,8 +11,8 @@ public class Filmografia {
     private String titulo;
     private Date fecha_estreno;
     private String sinopsis;
-    private String clasificacion;
-    private String pais;
+    private int clasificacion;
+    private int pais;
 
     public Filmografia() {
         super();
@@ -63,7 +63,7 @@ public class Filmografia {
         return clasificacion;
     }
 
-    public void setclasificacion(String clasificacion) {
+    public void setclasificacion(int clasificacion) {
         this.clasificacion = clasificacion;
     }
 
@@ -71,7 +71,7 @@ public class Filmografia {
         return pais;
     }
 
-    public void setpais(String pais) {
+    public void setpais(int pais) {
         this.pais = pais;
     }
 

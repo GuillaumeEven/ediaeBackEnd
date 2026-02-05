@@ -2,9 +2,9 @@
  * Archivo generado por IA
 */
 
-package com.evendev.ediaebackend.dao;
+package com.evendev.ediaebackend.daos;
 
-import com.evendev.ediaebackend.DBManager;
+import com.evendev.ediaebackend.utils.DBManager;
 import com.evendev.ediaebackend.models.Pais;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
