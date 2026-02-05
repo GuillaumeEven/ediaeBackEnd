@@ -25,7 +25,7 @@ public class PaisDao {
     private static final String SELECT_BY_ID = "SELECT id, nombre FROM pais WHERE id = ?";
 
     public PaisDao() {
-        this.connection = DBManager.getConnection();
+        this.connection = DBManager.connect();
     }
 
     public void insertPais(String nombre) throws SQLException {
@@ -33,5 +33,32 @@ public class PaisDao {
             stmt.setString(1, nombre);
             stmt.executeUpdate();
         }
+    }
+
+    public void updatePais(int id, String nombre) throws SQLException {
+        try (PreparedStatement stmt = connection.prepareStatement(UPDATE)) {
+            stmt.setString(1, nombre);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    public void deletePais(int id) throws SQLException {
+        try (PreparedStatement stmt = connection.prepareStatement(DELETE)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    public List<Pais> listAllPaises() throws SQLException {
+        List<Pais> paises = new ArrayList<>();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(SELECT_ALL)) {
+            while (rs.next()) {
+                Pais pais = new Pais(rs.getInt("id"), rs.getString("nombre"));
+                paises.add(pais);
+            }
+        }
+        return paises;
     }
 }

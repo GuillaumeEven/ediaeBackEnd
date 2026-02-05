@@ -15,10 +15,14 @@ import java.util.ArrayList;
  * @author sensei
  */
 public class DBManager {
+
+    //TODO move this to the utils package and rename it to DatabaseUtils
+
+
     private static final Dotenv DOTENV = Dotenv.configure().ignoreIfMissing().load();
     private static final String USERNAME = DOTENV.get("DB_USERNAME", "root");
     private static final String PASSWORD = DOTENV.get("DB_PASSWORD", "");
-    private static final String URL = DOTENV.get("DB_URL", "jdbc:mysql://localhost:3306/netflix");
+    private static final String URL = DOTENV.get("DB_URL", "jdbc:mysql://localhost:3306/Netflix");
 
     public Connection getConnection() {
         return connect();

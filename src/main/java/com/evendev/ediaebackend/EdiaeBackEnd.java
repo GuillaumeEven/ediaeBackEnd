@@ -4,6 +4,7 @@
 
 package com.evendev.ediaebackend;
 
+import com.evendev.ediaebackend.dao.FilmografiaDao;
 import com.evendev.ediaebackend.utils.Menu;
 
 import java.sql.Connection;
@@ -19,8 +20,36 @@ import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
  */
 public class EdiaeBackEnd {
 
+
     public static void main(String[] args) {
 
+        // test connection to the database
+        DBManager dbManager = new DBManager();
+        Connection connection = null;
+        FilmografiaDao filmografiaDao = null;
+        try {
+            connection = dbManager.getConnection();
+            if (connection != null) {
+                System.out.println("Connection to the database was successful!");
+            } else {
+                System.err.println("Failed to connect to the database.");
+            }
+
+            filmografiaDao = new FilmografiaDao();
+            filmografiaDao.listAllFilmografia();
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la lecture de la filmografia:");
+            e.printStackTrace();
+        } finally {
+            if (filmografiaDao != null) {
+                filmografiaDao.close();
+            }
+            DBManager.disconnect(connection);
+            AbandonedConnectionCleanupThread.checkedShutdown();
+        }
+
+
+        /*
         System.out.println("Hello ! What do you want to do ?");
 
         Scanner scan = new Scanner(System.in);
@@ -62,6 +91,7 @@ public class EdiaeBackEnd {
         scan.close();
         AbandonedConnectionCleanupThread.checkedShutdown();
         System.out.println("Program finished.");
+        */
 
     }
 
@@ -69,9 +99,10 @@ public class EdiaeBackEnd {
         try {
             Statement stmt = conn.createStatement();
 
-            // Ejemplo: mostrar todas las tablas de la base netflix únicamente
-            ResultSet tables = conn.getMetaData().getTables("netflix", null, "%", new String[]{"TABLE"});
-            System.out.println("Tablas disponibles en la base netflix:");
+            // Ejemplo: mostrar todas las tablas de la base actual
+            String catalog = conn.getCatalog();
+            ResultSet tables = conn.getMetaData().getTables(catalog, null, "%", new String[]{"TABLE"});
+            System.out.println("Tablas disponibles en la base " + (catalog != null ? catalog : "(catalogue inconnu)") + ":");
             while (tables.next()) {
                 System.out.println("  - " + tables.getString("TABLE_NAME"));
             }
