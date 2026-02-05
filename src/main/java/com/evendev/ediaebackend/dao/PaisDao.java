@@ -1,3 +1,7 @@
+/*
+ * Archivo generado por IA
+*/
+
 package com.evendev.ediaebackend.dao;
 
 import com.evendev.ediaebackend.DBManager;
