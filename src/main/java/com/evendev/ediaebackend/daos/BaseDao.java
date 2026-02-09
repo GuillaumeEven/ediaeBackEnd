@@ -39,10 +39,21 @@ public abstract class BaseDao<Model, Id> {
 
     protected abstract Model mapRow(ResultSet rs) throws SQLException;
 
+    protected abstract void setGeneratedId(Model entity, Object generatedId);
+
     public void insert(Model entity) throws SQLException {
-        try (PreparedStatement stmt = connection.prepareStatement(getInsertSql())) {
+        try (PreparedStatement stmt = connection.prepareStatement(getInsertSql(), PreparedStatement.RETURN_GENERATED_KEYS)) {
             bindInsert(stmt, entity);
             stmt.executeUpdate();
+
+            // Get the new generated ID and set it to the entity
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    Object generatedId = generatedKeys.getObject(1);
+                    setGeneratedId(entity, generatedId);
+                    System.out.println("Inserted entity with generated ID: " + generatedId);
+                }
+            }
         }
     }
 
@@ -62,16 +73,38 @@ public abstract class BaseDao<Model, Id> {
 
     public List<Model> findAll() throws SQLException {
         List<Model> results = new ArrayList<>();
-        try (PreparedStatement stmt = connection.prepareStatement(getSelectAllSql());
-             ResultSet rs = stmt.executeQuery()) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        // this is a more traditional way to handle resources, but it requires manual closing in the finally block
+        try {
+            stmt = connection.prepareStatement(getSelectAllSql());
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 results.add(mapRow(rs));
+            }
+        } finally {
+            // NOTE: This manual closing is unnecessary with try-with-resources,
+            // but shown here for pedagogical purposes
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.err.println("Error closing ResultSet: " + e.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    System.err.println("Error closing PreparedStatement: " + e.getMessage());
+                }
             }
         }
         return results;
     }
 
     public Optional<Model> findById(Id id) throws SQLException {
+        // using try-with-resources to ensure proper resource management
         try (PreparedStatement stmt = connection.prepareStatement(getSelectByIdSql())) {
             // apply the id to the prepared statement
             // stmt.setInt(1, id); // this is an example, the actual implementation depends on the model

@@ -74,13 +74,27 @@ public class FilmografiaDao extends BaseDao<Filmografia, Integer> {
     // The mapRow method is used to convert a ResultSet row into a Filmografia object
     @Override
     protected Filmografia mapRow(ResultSet rs) throws SQLException {
-        Filmografia filmo = new Filmografia();
-        filmo.setid(rs.getInt("id"));
-        filmo.settitulo(rs.getString("titulo"));
-        filmo.setfecha_estreno(rs.getDate("fecha_estreno"));
-        filmo.setsinopsis(rs.getString("sinopsis"));
-        filmo.setclasificacion(rs.getInt("clasificacion_id"));
-        filmo.setpais(rs.getInt("pais_id"));
+        Filmografia filmo = new Filmografia(
+            rs.getInt("id"),
+            rs.getString("titulo"),
+            rs.getDate("fecha_estreno"),
+            rs.getString("sinopsis"),
+            rs.getInt("clasificacion_id"),
+            rs.getInt("pais_id")
+        );
+        // filmo.setid(rs.getInt("id"));
+        // filmo.settitulo(rs.getString("titulo"));
+        // filmo.setfecha_estreno(rs.getDate("fecha_estreno"));
+        // filmo.setsinopsis(rs.getString("sinopsis"));
+        // filmo.setclasificacion(rs.getInt("clasificacion_id"));
+        // filmo.setpais(rs.getInt("pais_id"));
         return filmo;
+    }
+
+    @Override
+    protected void setGeneratedId(Filmografia entity, Object generatedId) {
+        if (generatedId instanceof Number) {
+            entity.setid(((Number) generatedId).intValue());
+        }
     }
 }

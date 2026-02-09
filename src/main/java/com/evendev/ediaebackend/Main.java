@@ -68,7 +68,7 @@ public class Main {
                 if (maybeFilmo.isPresent()) {
                     System.out.println(maybeFilmo.get());
                 } else {
-                    System.out.println("No filmografia found with id: 3");
+                    System.out.println("No filmografia found with id: 6");
                 }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Something went wrong while reading the filmografia.", e);
@@ -76,11 +76,48 @@ public class Main {
         }
 
         System.out.println("We'll add the next movie:");
+        Filmografia newFilmo = new Filmografia(
+            "The Matrix",
+            java.sql.Date.valueOf("1999-03-31"),
+            "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+            4,
+            1
+        );
 
+        try {
+            filmografiaDao.insert(newFilmo);
+            System.out.println("Movie inserted successfully!");
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Something went wrong while inserting the filmografia.", e);
+            throw new RuntimeException("Database error while inserting filmografia.", e);
+        }
+
+        System.out.println("And now we can see it exists:");
+        try {
+            System.out.println("Test of filmo.findAll");
+            List<Filmografia> filmos = filmografiaDao.findAll();
+            for (Filmografia filmo : filmos) {
+                System.out.println(filmo);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Something went wrong while reading the filmografia.", e);
+            throw new RuntimeException("Database error while reading filmografia.", e);
+        }
 
 
         DBManager.disconnect(connection);
         AbandonedConnectionCleanupThread.checkedShutdown();
+
+        System.out.println("--------------------------");
+        System.out.println("        UPDATE            ");
+        System.out.println("--------------------------");
+
+        System.out.println("Now we'll update the movie we've just created");
+
+        System.out.println(newFilmo.getid());
+
+
+
 
 
         /*
