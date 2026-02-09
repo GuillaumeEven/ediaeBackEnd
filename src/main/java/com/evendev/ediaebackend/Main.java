@@ -122,6 +122,36 @@ public class Main {
         }
 
 
+        System.out.println("--------------------------");
+        System.out.println("        DELETE            ");
+        System.out.println("--------------------------");
+
+        System.out.println("So much movies created, let's delete all of those with id >= 6 ");
+        try {
+            List<Filmografia> filmos = filmografiaDao.findAll();
+            for (Filmografia filmo : filmos) {
+                if (filmo.getid() >= 6) {
+                    filmografiaDao.delete(filmo.getid());
+                    System.out.println("Deleted movie with id: " + filmo.getid());
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Something went wrong while deleting the filmografia.", e);
+            throw new RuntimeException("Database error while deleting filmografia.", e);
+        }
+
+        System.out.println("And now we can see the movie has been deleted:");
+        try {
+            System.out.println("Test of filmo.findAll");
+            List<Filmografia> filmos = filmografiaDao.findAll();
+            for (Filmografia filmo : filmos) {
+                System.out.println(filmo);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Something went wrong while reading the filmografia.", e);
+            throw new RuntimeException("Database error while reading filmografia.", e);
+        }
+
         DBManager.disconnect(connection);
         AbandonedConnectionCleanupThread.checkedShutdown();
         // System.out.println("And now we can see the title has been updated:");
