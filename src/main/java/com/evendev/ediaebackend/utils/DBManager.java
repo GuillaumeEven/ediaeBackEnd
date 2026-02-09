@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.evendev.ediaebackend.utils;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
@@ -10,10 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-/**
- *
- * @author sensei
- */
+
 public class DBManager {
 
     private static final Dotenv DOTENV = Dotenv.configure().ignoreIfMissing().load();

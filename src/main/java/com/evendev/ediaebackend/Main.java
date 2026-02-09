@@ -15,10 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
-/**
- *
- * @author sensei
- */
+
 public class Main {
 
     public static void main(String[] args) {
@@ -86,71 +83,4 @@ public class Main {
         */
 
     }
-//
-//    public static void readDatas(Connection conn) {
-//        try {
-//            Statement stmt = conn.createStatement();
-//
-//            // Ejemplo: mostrar todas las tablas de la base actual
-//            String catalog = conn.getCatalog();
-//            ResultSet tables = conn.getMetaData().getTables(catalog, null, "%", new String[]{"TABLE"});
-//            System.out.println("Tablas disponibles en la base " + (catalog != null ? catalog : "(catalogue inconnu)") + ":");
-//            while (tables.next()) {
-//                System.out.println("  - " + tables.getString("TABLE_NAME"));
-//            }
-//            tables.close();
-//
-//            // Ejemplo de consulta en una tabla (modifique según sus tablas)
-//            System.out.println("\nEjemplo de lectura de datos:");
-//            String query = "SELECT * FROM filmografia";
-//            try {
-//                ResultSet rs = stmt.executeQuery(query);
-//                int columnCount = rs.getMetaData().getColumnCount();
-//
-//                // Mostrar los nombres de las columnas
-//                System.out.print("[");
-//                for (int i = 1; i <= columnCount; i++) {
-//                    System.out.print(rs.getMetaData().getColumnName(i));
-//                    if (i < columnCount) System.out.print(" | ");
-//                }
-//                System.out.println("]");
-//
-//                // Mostrar los datos
-//                while (rs.next()) {
-//                    System.out.print("[");
-//                    for (int i = 1; i <= columnCount; i++) {
-//                        System.out.print(rs.getString(i));
-//                        if (i < columnCount) System.out.print(" | ");
-//                    }
-//                    System.out.println("]");
-//                }
-//                rs.close();
-//            } catch (SQLException e) {
-//                System.out.println(e);
-//            }
-//
-//
-//            // Ejemplo de inserción (INSERT)
-//            String insertSql = "INSERT INTO filmografia (id, fecha_estreno, sinopsis, titulo, tipo, pais, clasificacion) "
-//                + "VALUES (5, '2024-03-24', 'Una peli extraordiaria !', 'Un titulo genial', 'Western', 'USA', 'PG-13')";
-//            int rowsInserted = stmt.executeUpdate(insertSql);
-//            System.out.println("Filas insertadas: " + rowsInserted);
-//
-//            // Ejemplo de actualización (UPDATE)
-//            String updateSql = "UPDATE filmografia SET titulo = 'una peli chulisima' WHERE id = 5";
-//            int rowsUpdated = stmt.executeUpdate(updateSql);
-//            System.out.println("Filas modificadas: " + rowsUpdated);
-//
-//            // Ejemplo de eliminación (DELETE)
-//            String deleteSql = "DELETE FROM filmografia WHERE id = 5";
-//            int rowsDeleted = stmt.executeUpdate(deleteSql);
-//            System.out.println("Filas eliminadas: " + rowsDeleted);
-//
-//            stmt.close();
-//
-//        } catch (SQLException e) {
-//            System.err.println("Error al leer los datos:");
-//            e.printStackTrace();
-//        }
-//    }
 }
