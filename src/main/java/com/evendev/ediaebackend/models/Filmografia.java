@@ -18,7 +18,7 @@ public class Filmografia {
         super();
     }
 
-    public Filmografia(int id, String titulo, Date fecha_estreno, String sinopsis, String clasificacion, String pais) {
+    public Filmografia(int id, String titulo, Date fecha_estreno, String sinopsis, int clasificacion, int pais) {
         this.id = id;
         this.titulo = titulo;
         this.fecha_estreno = fecha_estreno;
@@ -77,13 +77,12 @@ public class Filmografia {
 
     @Override
     public String toString() {
-        return "Filmografia{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", fecha_estreno=" + fecha_estreno +
-                ", sinopsis='" + sinopsis + '\'' +
-                ", clasificacion='" + clasificacion + '\'' +
-                ", pais='" + pais + '\'' +
-                '}';
+        return "Pelicula numero " +
+                "id=" + id + "\n" +
+                ", titulo='" + titulo + '\'' + "\n" +
+                ", fecha_estreno=" + fecha_estreno + "\n" +
+                ", sinopsis='" + sinopsis + '\'' + "\n" +
+                ", clasificacion=" + clasificacion + "\n" +
+                ", pais=" + pais;
     }
 }
