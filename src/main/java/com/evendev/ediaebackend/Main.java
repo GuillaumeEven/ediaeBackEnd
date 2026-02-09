@@ -105,17 +105,36 @@ public class Main {
         }
 
 
-        DBManager.disconnect(connection);
-        AbandonedConnectionCleanupThread.checkedShutdown();
-
         System.out.println("--------------------------");
         System.out.println("        UPDATE            ");
         System.out.println("--------------------------");
 
         System.out.println("Now we'll update the movie we've just created");
 
-        System.out.println(newFilmo.getid());
+        newFilmo.settitulo("The Matrix Reloaded");
+        System.out.println(newFilmo.toString());
+        try {
+            filmografiaDao.update(newFilmo);
+            System.out.println("Movie updated successfully!");
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Something went wrong while updating the filmografia.", e);
+            throw new RuntimeException("Database error while updating filmografia.", e);
+        }
 
+
+        DBManager.disconnect(connection);
+        AbandonedConnectionCleanupThread.checkedShutdown();
+        // System.out.println("And now we can see the title has been updated:");
+        // try {
+        //     System.out.println("Test of filmo.findAll");
+        //     List<Filmografia> filmos = filmografiaDao.findAll();
+        //     for (Filmografia filmo : filmos) {
+        //         System.out.println(filmo);
+        //     }
+        // } catch (SQLException e) {
+        //     LOGGER.log(Level.SEVERE, "Something went wrong while reading the filmografia.", e);
+        //     throw new RuntimeException("Database error while reading filmografia.", e);
+        // }
 
 
 
