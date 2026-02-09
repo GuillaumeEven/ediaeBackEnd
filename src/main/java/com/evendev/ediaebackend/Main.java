@@ -4,16 +4,14 @@
 
 package com.evendev.ediaebackend;
 
-import com.evendev.ediaebackend.utils.DBManager;
 import com.evendev.ediaebackend.daos.FilmografiaDao;
-import com.evendev.ediaebackend.utils.Menu;
+import com.evendev.ediaebackend.models.Filmografia;
+import com.evendev.ediaebackend.utils.DBManager;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
+import java.util.Optional;
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 
 public class Main {
@@ -22,14 +20,23 @@ public class Main {
 
         DBManager dbManager = new DBManager();
         Connection connection = dbManager.getConnection();
-        FilmografiaDao filmografiaDao = null;
+        FilmografiaDao filmografiaDao;
 
         try {
             filmografiaDao = new FilmografiaDao(connection);
-            System.out.println("Test de filmo.listall");
-            filmografiaDao.listAllFilmografia();
-            System.out.println("\nTest de filmo.listOne avec id = 3");
-            filmografiaDao.listOne(3);
+            System.out.println("Test de filmo.findAll");
+            List<Filmografia> filmos = filmografiaDao.findAll();
+            for (Filmografia filmo : filmos) {
+                System.out.println(filmo);
+            }
+
+            System.out.println("\nTest de filmo.findById avec id = 3");
+            Optional<Filmografia> maybeFilmo = filmografiaDao.findById(3);
+            if (maybeFilmo.isPresent()) {
+                System.out.println(maybeFilmo.get());
+            } else {
+                System.out.println("No se encontró una filmografia con id: 3");
+            }
         } catch (SQLException e) {
             System.err.println("Something went wrong while reading the filmografia:");
             e.printStackTrace();

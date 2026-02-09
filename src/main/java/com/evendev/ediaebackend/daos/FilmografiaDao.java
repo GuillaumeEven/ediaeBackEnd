@@ -1,65 +1,86 @@
 package com.evendev.ediaebackend.daos;
 
 import com.evendev.ediaebackend.models.Filmografia;
-import com.evendev.ediaebackend.utils.DBManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class FilmografiaDao {
-        private Connection connection;
-        private static final String INSERT = "INSERT INTO Filmografia (titulo, fecha_estreno, sinopsis, clasificacion_id, pais_id) VALUES (?)";
-        private static final String UPDATE = "UPDATE Filmografia SET ? = ? WHERE id = ?";
-        private static final String DELETE = "DELETE FROM Filmografia WHERE id = ?";
-        private static final String LISTALL = "SELECT * FROM Filmografia";
-        private static final String LISTONE = "SELECT * FROM Filmografia WHERE id = ?";
+public class FilmografiaDao extends BaseDao<Filmografia, Integer> {
 
-        public FilmografiaDao(Connection connection) {
-            this.connection = connection;
-        }
+    private static final String INSERT = "INSERT INTO Filmografia (titulo, fecha_estreno, sinopsis, clasificacion_id, pais_id) VALUES (?, ?, ?, ?, ?)";
+    private static final String UPDATE = "UPDATE Filmografia SET titulo = ?, fecha_estreno = ?, sinopsis = ?, clasificacion_id = ?, pais_id = ? WHERE id = ?";
+    private static final String DELETE = "DELETE FROM Filmografia WHERE id = ?";
+    private static final String SELECT_ALL = "SELECT * FROM Filmografia";
+    private static final String SELECT_BY_ID = "SELECT * FROM Filmografia WHERE id = ?";
 
-        public void listAllFilmografia() throws SQLException {
-                String sql = this.LISTALL;
-                try {
-                        PreparedStatement stmt = connection.prepareStatement(sql);
-                        ResultSet rs = stmt.executeQuery();
-                        while (rs.next()) {
-                            Filmografia filmo = new Filmografia();
-                            filmo.setid(rs.getInt("id"));
-                            filmo.settitulo(rs.getString("titulo"));
-                            filmo.setfecha_estreno(rs.getDate("fecha_estreno"));
-                            filmo.setsinopsis(rs.getString("sinopsis"));
-                            filmo.setpais(rs.getInt("pais_id"));
-                            filmo.setclasificacion(rs.getInt("clasificacion_id"));
-                            System.out.println(filmo.toString());
-                        }
-                } catch (SQLException e) {
-                        System.out.println(e);
-                }
+    public FilmografiaDao() {
+        super();
+    }
 
-        }
+    public FilmografiaDao(Connection connection) {
+        super(connection);
+    }
 
-        public void listOne(int id) throws SQLException {
-            String sql = this.LISTONE;
-            try {
-                PreparedStatement stmt = connection.prepareStatement(sql);
-                stmt.setInt(1, id);
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    Filmografia filmo = new Filmografia();
-                    filmo.setid(rs.getInt("id"));
-                    filmo.settitulo(rs.getString("titulo"));
-                    filmo.setfecha_estreno(rs.getDate("fecha_estreno"));
-                    filmo.setsinopsis(rs.getString("sinopsis"));
-                    filmo.setpais(rs.getInt("pais_id"));
-                    filmo.setclasificacion(rs.getInt("clasificacion_id"));
-                    System.out.println(filmo.toString());
-                } else {
-                    System.out.println("No se encontró una filmografia con id: " + id);
-                }
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
-        }
+    @Override
+    protected String getInsertSql() {
+        return INSERT;
+    }
+
+    @Override
+    protected String getUpdateSql() {
+        return UPDATE;
+    }
+
+    @Override
+    protected String getDeleteSql() {
+        return DELETE;
+    }
+
+    @Override
+    protected String getSelectAllSql() {
+        return SELECT_ALL;
+    }
+
+    @Override
+    protected String getSelectByIdSql() {
+        return SELECT_BY_ID;
+    }
+
+    @Override
+    protected void bindInsert(PreparedStatement stmt, Filmografia entity) throws SQLException {
+        stmt.setString(1, entity.gettitulo());
+        stmt.setDate(2, entity.getfecha_estreno());
+        stmt.setString(3, entity.getsinopsis());
+        stmt.setInt(4, entity.getclasificacion());
+        stmt.setInt(5, entity.getpais());
+    }
+
+    @Override
+    protected void bindUpdate(PreparedStatement stmt, Filmografia entity) throws SQLException {
+        stmt.setString(1, entity.gettitulo());
+        stmt.setDate(2, entity.getfecha_estreno());
+        stmt.setString(3, entity.getsinopsis());
+        stmt.setInt(4, entity.getclasificacion());
+        stmt.setInt(5, entity.getpais());
+        stmt.setInt(6, entity.getid());
+    }
+
+    @Override
+    protected void bindId(PreparedStatement stmt, Integer id) throws SQLException {
+        stmt.setInt(1, id);
+    }
+
+    // The mapRow method is used to convert a ResultSet row into a Filmografia object
+    @Override
+    protected Filmografia mapRow(ResultSet rs) throws SQLException {
+        Filmografia filmo = new Filmografia();
+        filmo.setid(rs.getInt("id"));
+        filmo.settitulo(rs.getString("titulo"));
+        filmo.setfecha_estreno(rs.getDate("fecha_estreno"));
+        filmo.setsinopsis(rs.getString("sinopsis"));
+        filmo.setclasificacion(rs.getInt("clasificacion_id"));
+        filmo.setpais(rs.getInt("pais_id"));
+        return filmo;
+    }
 }
