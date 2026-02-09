@@ -73,8 +73,11 @@ public abstract class BaseDao<Model, Id> {
 
     public Optional<Model> findById(Id id) throws SQLException {
         try (PreparedStatement stmt = connection.prepareStatement(getSelectByIdSql())) {
+            // apply the id to the prepared statement
+            // stmt.setInt(1, id); // this is an example, the actual implementation depends on the model
             bindId(stmt, id);
             try (ResultSet rs = stmt.executeQuery()) {
+                // if because of the id, we expect at most one result, we can directly return an Optional<Model>
                 if (rs.next()) {
                     return Optional.of(mapRow(rs));
                 }

@@ -13,23 +13,24 @@ public class DBManager {
     private static final String USERNAME = DOTENV.get("DB_USERNAME", "root");
     private static final String PASSWORD = DOTENV.get("DB_PASSWORD", "");
     private static final String URL = DOTENV.get("DB_URL", "jdbc:mysql://localhost:3306/Netflix");
+    private static final Connection connection = connect();
 
     public Connection getConnection() {
-        return connect();
+        return connection;
     }
 
     public static Connection connect() {
 
         try {
-            // Créer la connexion à la base de données
+            // Create the database connection
             Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-            System.out.println("Connecté à la base de données avec succès!");
+            System.out.println("Connected to the database successfully!");
 
             return conn;
 
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la connection à la base de données!");
+            System.err.println("Error while connecting to the database!");
             e.printStackTrace();
         }
         return null;
@@ -39,9 +40,9 @@ public class DBManager {
         if (conn != null) {
             try {
                 conn.close();
-                System.out.println("Connexion fermée avec succès.");
+                System.out.println("Connection closed successfully.");
             } catch (SQLException e) {
-                System.err.println("Erreur lors de la fermeture de la connexion.");
+                System.err.println("Error while closing the connection.");
                 e.printStackTrace();
             }
         }
@@ -61,7 +62,7 @@ public class DBManager {
             rs.close();
             stmt.close();
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération des colonnes de la table " + tableName);
+            System.err.println("Error while fetching columns for table " + tableName);
             e.printStackTrace();
         } finally {
             disconnect(conn);

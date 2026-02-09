@@ -12,9 +12,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 
 public class Main {
+
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
 
@@ -22,25 +26,59 @@ public class Main {
         Connection connection = dbManager.getConnection();
         FilmografiaDao filmografiaDao;
 
+        filmografiaDao = new FilmografiaDao(connection);
+
+        System.out.println("=================================");
+        System.out.println("        FILMOGRAFIA              ");
+        System.out.println("=================================");
+
+        // Test of read one and read all
+        System.out.println("--------------------------");
+        System.out.println("        READ              ");
+        System.out.println("--------------------------");
+
         try {
-            filmografiaDao = new FilmografiaDao(connection);
-            System.out.println("Test de filmo.findAll");
+            System.out.println("Test of filmo.findAll");
             List<Filmografia> filmos = filmografiaDao.findAll();
             for (Filmografia filmo : filmos) {
                 System.out.println(filmo);
             }
 
-            System.out.println("\nTest de filmo.findById avec id = 3");
+            System.out.println("\nTest of filmo.findById with id = 3");
             Optional<Filmografia> maybeFilmo = filmografiaDao.findById(3);
             if (maybeFilmo.isPresent()) {
                 System.out.println(maybeFilmo.get());
             } else {
-                System.out.println("No se encontró una filmografia con id: 3");
+                System.out.println("No filmografia found with id: 3");
             }
         } catch (SQLException e) {
-            System.err.println("Something went wrong while reading the filmografia:");
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Something went wrong while reading the filmografia.", e);
+            throw new RuntimeException("Database error while reading filmografia.", e);
         }
+
+        // test of create
+        System.out.println("--------------------------");
+        System.out.println("        CREATE            ");
+        System.out.println("--------------------------");
+
+        System.out.println("The movie with id 6 doesn't exist :");
+        try {
+            System.out.println("\nTest of filmo.findById with id = 6");
+                Optional<Filmografia> maybeFilmo = filmografiaDao.findById(6);
+                if (maybeFilmo.isPresent()) {
+                    System.out.println(maybeFilmo.get());
+                } else {
+                    System.out.println("No filmografia found with id: 3");
+                }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Something went wrong while reading the filmografia.", e);
+            throw new RuntimeException("Database error while reading filmografia.", e);
+        }
+
+        System.out.println("We'll add the next movie:");
+
+
+
         DBManager.disconnect(connection);
         AbandonedConnectionCleanupThread.checkedShutdown();
 
@@ -80,7 +118,7 @@ public class Main {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.err.println("Erreur lors de la fermeture de la connexion:");
+                System.err.println("Error while closing the connection:");
                 e.printStackTrace();
             }
         }
