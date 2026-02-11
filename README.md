@@ -1,23 +1,41 @@
-# Ediae Backend
+# Roadmap
 
-## Configuration du Logging
+## Models to implement
+- [x] Filmografia
+- [x] Acceso
+- [x] Clasificacion
+- [x] Cuenta
+- [x] Genero
+- [x] Factura
+- [x] Film_Genero
+- [x] Pais
+- [x] Reparto
+- [x] Suscripcion
 
-### Option A — Fichier via configuration (`logging.properties`)
-**Avantages :**
-- Sépare le code et la config (meilleure pratique).
-- Facile à changer sans recompiler.
-- Centralise le logging pour tout le projet.
+## Core to implement
+- [x] Main
+- [x] DBManager
+- [x] Daos
+  - [x] BaseDao
+  - [x] FilmografiaDao
 
-**Inconvénients :**
-- Nécessite un fichier externe et un paramètre JVM.
-- Moins évident en début de projet/formation.
+## Features to implement
+- [x] filmografia table
+  - [x] read all the table
+  - [x] read one db entry with an id
+  - [x] insert a new entry in the table
+  - [x] update an entry
+  - [x] delete an entry
+- [ ] Menus in main
 
-### Option B — Fichier en code (`FileHandler` dans `Main`)
-**Avantages :**
-- Simple à mettre en place rapidement.
-- Visible directement dans le code (pédagogique).
-
-**Inconvénients :**
-- Mélange logique métier et config.
-- Plus dur à modifier sans recompiler.
-- Risque d'oublier d'activer/désactiver en prod.
+## Structure of files
+- Main.java
+- [package] daos
+  - FilmografiaDao.java
+  - ...
+- [package] models
+  - Filmografia.java
+  - ...
+- [package] utils
+  - DBManager.java
+  - Menu.java
